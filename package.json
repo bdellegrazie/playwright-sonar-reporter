@@ -1,0 +1,73 @@
+{
+  "name": "@bdellegrazie/playwright-sonar-reporter",
+  "version": "0.1.0",
+  "description": "generate Sonarqube Generic Text Execution XML report with the playwright test results",
+  "main": "./dist/index.js",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist test-results .nyc_output",
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "npx eslint . --cache --ext .ts",
+    "prettier": "prettier --write --loglevel warn \"**/**/*.ts\"",
+    "prepublish": "npm run build",
+    "test": "npx playwright test",
+    "typecheck": "tsc",
+    "test:coverage": "nyc playwright test && nyc report --reporter=lcov --reporter=html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdellegrazie/playwright-sonar-reporter.git"
+  },
+  "keywords": [
+    "playwright",
+    "sonar",
+    "report"
+  ],
+  "contributors": [
+    "Brett Delle Grazie <brett.dellegrazie@gmail.com>",
+    "Sergio Freire <sergio.freire@idera.com>"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bdellegrazie/playwright-sonar-reporter/issues"
+  },
+  "homepage": "https://github.com/bdellegrazie/playwright-sonar-reporter",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@playwright/test": "^1.40.1",
+    "@sinonjs/fake-timers": "^9.1.2",
+    "@types/node": "^18.7.23",
+    "@types/sinonjs__fake-timers": "^8.1.2",
+    "@types/ws": "^8.5.4",
+    "@types/xml2js": "^0.4.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "babel-plugin-istanbul": "^6.1.1",
+    "colors": "^1.4.0",
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-notice": "^0.9.10",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "mock-fs": "^5.1.4",
+    "nyc": "^15.1.0",
+    "playwright": "^1.40.1",
+    "playwright-test-coverage": "^1.2.0",
+    "prettier": "^2.7.1",
+    "rimraf": "^5.0.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "^5.3.2",
+    "ws": "^8.13.0",
+    "xml2js": "^0.5.0"
+  },
+  "dependencies": {
+    "@babel/code-frame": "^7.21.4",
+    "mime": "^3.0.0",
+    "proxy": "^1.0.2",
+    "socksv5": "^0.0.6"
+  }
+}
