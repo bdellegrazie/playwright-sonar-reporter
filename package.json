@@ -1,6 +1,6 @@
 {
   "name": "@bdellegrazie/playwright-sonar-reporter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "generate Sonarqube Generic Text Execution XML report with the playwright test results",
   "main": "./dist/index.js",
   "types": "./dist/types.d.ts",
@@ -19,7 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bdellegrazie/playwright-sonar-reporter.git"
+    "url": "https://github.com/bdellegrazie/playwright-sonar-reporter.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "playwright",
