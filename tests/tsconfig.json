@@ -1,15 +1,16 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "checkJs": false,
-        "noEmit": true,
-        "moduleResolution": "Node16",
-        "target": "ESNext",
-        "strictNullChecks": false,
-        "strictBindCallApply": true,
-        "allowSyntheticDefaultImports": true,
-        "useUnknownInCatchVariables": false,
-        "baseUrl": ".."
-    },
-    "include": ["**/*.spec.js", "**/*.ts", "index.d.ts"]
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "baseUrl": "..",
+    "checkJs": false,
+    "module": "node16",
+    "moduleResolution": "Node16",
+    "noEmit": true,
+    "target": "ESNext",
+    "strictNullChecks": false,
+    "strictBindCallApply": true,
+    "useUnknownInCatchVariables": false
+  },
+  "include": ["**/*.spec.js", "**/*.ts", "index.d.ts"]
 }

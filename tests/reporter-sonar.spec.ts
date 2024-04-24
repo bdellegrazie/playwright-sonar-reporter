@@ -16,8 +16,9 @@
 
 import xml2js from 'xml2js';
 import path from 'path';
-import { test, expect } from './playwright-test-fixtures';
+import { test, expect } from './playwright-test-fixtures.js';
 
+const __dirname = import.meta.dirname;
 const THIS_REPORTER = path.join(__dirname, '../dist/index.js');
 
 test('should render expected', async ({ runInlineTest }) => {

@@ -20,16 +20,17 @@ import * as os from 'os';
 import * as path from 'path';
 import { PNG } from 'playwright-core/lib/utilsBundle';
 import { removeFolders } from 'playwright-core/lib/utils';
-import type { CommonFixtures, CommonWorkerFixtures, TestChildProcess } from './config/commonFixtures';
-import { commonFixtures } from './config/commonFixtures';
-import type { ServerFixtures, ServerWorkerOptions } from './config/serverFixtures';
-import { serverFixtures } from './config/serverFixtures';
+import type { CommonFixtures, CommonWorkerFixtures, TestChildProcess } from './config/commonFixtures.js';
+import { commonFixtures } from './config/commonFixtures.js';
+import type { ServerFixtures, ServerWorkerOptions } from './config/serverFixtures.js';
+import { serverFixtures } from './config/serverFixtures.js';
 
 import type { TestInfo } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { test as base } from '@playwright/test';
 
 
+const __dirname = import.meta.dirname;
 /*
 import type { TestInfo } from './stable-test-runner';
 import { expect } from './stable-test-runner';

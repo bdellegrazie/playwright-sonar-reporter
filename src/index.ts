@@ -18,7 +18,7 @@ import fs from 'fs';
 import path from 'path';
 
 import type { FullConfig, FullResult, Reporter, Suite, TestCase } from '@playwright/test/reporter';
-import { stripAnsiEscapes } from './base';
+import { stripAnsiEscapes } from './base.js';
 import { assert } from 'playwright-core/lib/utils';
 
 export function monotonicTime(): number {
