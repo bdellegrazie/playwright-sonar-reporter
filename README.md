@@ -1,6 +1,6 @@
 # Playwright Reporter for Sonarqube
 
-Simplified version of [XrayApp's playwright-junit-report](https://github.com/XrayApp/playwright-junit-reporter) to support 
+Simplified version of [XrayApp's playwright-junit-report](https://github.com/Xray-App/playwright-junit-reporter) to support 
 [Sonarqube's Generic Data Test Execution](https://docs.sonarsource.com/sonarqube/9.9/analyzing-source-code/test-coverage/generic-test-data/#generic-test-execution) format.
 
 
@@ -66,6 +66,6 @@ Any questions related with this code, please raise issues in this GitHub project
 
 ## LICENSE
 
-Based on code from [Playwright](https://github.com/microsoft/playwright/) project and [XrayApp's playwright-junit-report](https://github.com/XrayApp/playwright-junit-reporter)
+Based on code from [Playwright](https://github.com/microsoft/playwright/) project and [Xray-App's playwright-junit-report](https://github.com/Xray-App/playwright-junit-reporter)
 
 [Apache License v2.0](LICENSE)
