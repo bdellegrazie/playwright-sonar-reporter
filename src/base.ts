@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { colors, ms as milliseconds, parseStackTraceLine } from 'playwright-core/lib/utilsBundle';
+import { colors, ms as milliseconds } from 'playwright-core/lib/utilsBundle';
+import { parseStackFrame } from 'playwright-core/lib/utils';
 import fs from 'fs';
 import path from 'path';
 import type { FullConfig, TestCase, Suite, TestResult, FullResult, TestStep, Location, Reporter } from '@playwright/test/reporter';
@@ -516,7 +517,7 @@ export function prepareErrorStack(stack: string): {
   const stackLines = lines.slice(firstStackLine);
   let location: Location | undefined;
   for (const line of stackLines) {
-    const frame = parseStackTraceLine(line);
+    const frame = parseStackFrame(line, path.sep, !!process.env.PWDEBUGIMPL);
     if (!frame || !frame.file)
       continue;
     if (belongsToNodeModules(frame.file))
