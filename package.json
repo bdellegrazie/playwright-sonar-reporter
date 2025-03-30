@@ -68,7 +68,7 @@
     "prettier": "^3.2.5",
     "proxy": "^2.1.1",
     "rimraf": "^5.0.5",
-    "socksv5": "^0.0.4",
+    "socksv5": "^0.0.6",
     "source-map-support": "^0.5.21",
     "typescript": "^5.4.5",
     "ws": "^8.16.0",
