@@ -113,8 +113,31 @@ test('should render skipped', async ({ runInlineTest }) => {
       test('one', async () => {
         console.log('Hello world');
       });
-      test('two', async () => {
-        test.skip();
+      test.skip('two', async () => {
+        console.log('Hello world');
+      });
+    `,
+  }, { retries: 3, reporter: THIS_REPORTER });
+  const xml = parseXML(result.output);
+  expect(xml['testExecutions']['$']['version']).toBe('1');
+  expect(xml['testExecutions']['file'].length).toBe(1);
+  expect(xml['testExecutions']['file'][0]['$']['path']).toContain('a.test.js');
+  expect(xml['testExecutions']['file'][0]['testCase'].length).toBe(2);
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['$']['name']).toBe('one');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['$']['name']).toBe('two');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]).toHaveProperty('skipped');
+
+  expect(result.exitCode).toBe(0);
+});
+
+test('fixme should render as skipped', async ({ runInlineTest }) => {
+  const result = await runInlineTest({
+    'a.test.js': `
+      import { test, expect } from '@playwright/test';
+      test('one', async () => {
+        console.log('Hello world');
+      });
+      test.fixme('two', async () => {
         console.log('Hello world');
       });
     `,
