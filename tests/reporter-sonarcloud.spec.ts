@@ -35,7 +35,7 @@ test('should render expected', async ({ runInlineTest }) => {
         expect(1).toBe(1);
       });
     `,
-  }, { reporter: THIS_REPORTER });
+  }, { reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(2);
@@ -56,7 +56,7 @@ test('should render failure', async ({ runInlineTest }) => {
         expect(1).toBe(0);
       });
     `,
-  }, { reporter: THIS_REPORTER });
+  }, { reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(1);
@@ -64,6 +64,9 @@ test('should render failure', async ({ runInlineTest }) => {
   expect(xml['testExecutions']['file'][0]['testCase'].length).toBe(1);
   expect(xml['testExecutions']['file'][0]['testCase'][0]['$']['name']).toBe('one');
   expect(xml['testExecutions']['file'][0]['testCase'][0]).toHaveProperty('failure');
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'].length).toBe(1);
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'][0]['$']).toHaveProperty('message');
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'][0]['$']['message'].length).toBeGreaterThan(0);
 
   expect(result.exitCode).toBe(1);
 });
@@ -76,7 +79,7 @@ test('should render failure after retry and unexpected', async ({ runInlineTest 
         expect(1).toBe(0);
       });
     `,
-  }, { retries: 3, reporter: THIS_REPORTER });
+  }, { retries: 3, reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(1);
@@ -84,6 +87,9 @@ test('should render failure after retry and unexpected', async ({ runInlineTest 
   expect(xml['testExecutions']['file'][0]['testCase'].length).toBe(1);
   expect(xml['testExecutions']['file'][0]['testCase'][0]['$']['name']).toBe('one');
   expect(xml['testExecutions']['file'][0]['testCase'][0]).toHaveProperty('failure');
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'].length).toBe(1);
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'][0]['$']).toHaveProperty('message');
+  expect(xml['testExecutions']['file'][0]['testCase'][0]['failure'][0]['$']['message'].length).toBeGreaterThan(0);
 
   expect(result.exitCode).toBe(1);
 });
@@ -96,7 +102,7 @@ test('should render after flaky success', async ({ runInlineTest }) => {
         expect(testInfo.retry).toBe(3);
       });
     `,
-  }, { retries: 3, reporter: THIS_REPORTER });
+  }, { retries: 3, reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(1);
@@ -117,7 +123,7 @@ test('should render skipped', async ({ runInlineTest }) => {
         console.log('Hello world');
       });
     `,
-  }, { retries: 3, reporter: THIS_REPORTER });
+  }, { reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(1);
@@ -126,6 +132,9 @@ test('should render skipped', async ({ runInlineTest }) => {
   expect(xml['testExecutions']['file'][0]['testCase'][0]['$']['name']).toBe('one');
   expect(xml['testExecutions']['file'][0]['testCase'][1]['$']['name']).toBe('two');
   expect(xml['testExecutions']['file'][0]['testCase'][1]).toHaveProperty('skipped');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'].length).toBe(1);
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'][0]['$']).toHaveProperty('message');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'][0]['$']['message'].length).toBeGreaterThan(0);
 
   expect(result.exitCode).toBe(0);
 });
@@ -141,7 +150,7 @@ test('fixme should render as skipped', async ({ runInlineTest }) => {
         console.log('Hello world');
       });
     `,
-  }, { retries: 3, reporter: THIS_REPORTER });
+  }, { reporter: THIS_REPORTER }, { PLAYWRIGHT_SONAR_SONARCLOUD: 'true' });
   const xml = parseXML(result.output);
   expect(xml['testExecutions']['$']['version']).toBe('1');
   expect(xml['testExecutions']['file'].length).toBe(1);
@@ -150,6 +159,9 @@ test('fixme should render as skipped', async ({ runInlineTest }) => {
   expect(xml['testExecutions']['file'][0]['testCase'][0]['$']['name']).toBe('one');
   expect(xml['testExecutions']['file'][0]['testCase'][1]['$']['name']).toBe('two');
   expect(xml['testExecutions']['file'][0]['testCase'][1]).toHaveProperty('skipped');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'].length).toBe(1);
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'][0]['$']).toHaveProperty('message');
+  expect(xml['testExecutions']['file'][0]['testCase'][1]['skipped'][0]['$']['message'].length).toBeGreaterThan(0);
 
   expect(result.exitCode).toBe(0);
 });
