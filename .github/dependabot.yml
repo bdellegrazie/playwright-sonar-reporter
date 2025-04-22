@@ -14,9 +14,24 @@ updates:
     schedule:
       interval: "monthly"
     groups:
+      playwright:
+        applies-to: version-updates
+        dependency-type: "development"
+        patterns:
+          - 'playwright'
+          - '@playwright/test'
+      playwright-sec:
+        applies-to: version-updates
+        dependency-type: "development"
+        patterns:
+          - 'playwright'
+          - '@playwright/test'
       dev-non-breaking:
         applies-to: version-updates
         dependency-type: "development"
+        exclude-patterns:
+          - 'playwright'
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
@@ -25,6 +40,9 @@ updates:
       dev-non-breaking-sec:
         applies-to: security-updates
         dependency-type: "development"
+        exclude-patterns:
+          - 'playwright'
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
