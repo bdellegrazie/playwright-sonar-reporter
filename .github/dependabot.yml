@@ -17,6 +17,8 @@ updates:
       dev-non-breaking:
         applies-to: version-updates
         dependency-type: "development"
+        exclude-patterns:
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
@@ -25,6 +27,8 @@ updates:
       dev-non-breaking-sec:
         applies-to: security-updates
         dependency-type: "development"
+        exclude-patterns:
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
@@ -33,6 +37,8 @@ updates:
       prd-non-breaking:
         applies-to: version-updates
         dependency-type: "production"
+        exclude-patterns:
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
@@ -41,6 +47,8 @@ updates:
       prd-non-breaking-sec:
         applies-to: security-updates
         dependency-type: "production"
+        exclude-patterns:
+          - '@playwright/test'
         patterns:
           - '*'
         update-types:
