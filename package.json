@@ -68,7 +68,7 @@
     "playwright-test-coverage": "^1.2.12",
     "prettier": "^3.2.5",
     "proxy": "^2.1.1",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.0.1",
     "socksv5": "^0.0.4",
     "source-map-support": "^0.5.21",
     "typescript": "^5.4.5",
