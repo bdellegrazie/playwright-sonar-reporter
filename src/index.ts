@@ -30,14 +30,16 @@ class SonarReporter implements Reporter {
   private config!: FullConfig;
   private suite!: Suite;
   private startTime!: number;
-  private outputFile: string | undefined;
+  private readonly outputFile: string | undefined;
   private resolvedOutputFile: string | undefined;
-  private stripANSIControlSequences = false;
+  private readonly stripANSIControlSequences: boolean | undefined;
+  private readonly sonarcloud: boolean = false;
 
 
-  constructor(options: { outputFile?: string, stripANSIControlSequences?: boolean, embedAnnotationsAsProperties?: boolean, textContentAnnotations?: string[], embedAttachmentsAsProperty?: string } = {}) {
+  constructor(options: { outputFile?: string, stripANSIControlSequences?: boolean, embedAnnotationsAsProperties?: boolean, textContentAnnotations?: string[], embedAttachmentsAsProperty?: string, sonarcloud?: boolean } = {}) {
     this.outputFile = options.outputFile || reportOutputNameFromEnv();
-    this.stripANSIControlSequences = options.stripANSIControlSequences || false;
+    this.stripANSIControlSequences = options.stripANSIControlSequences || true;
+    this.sonarcloud = options.sonarcloud || reportSonarCloudFromEnv() || false;
   }
 
   printsToStdio() {
@@ -110,13 +112,18 @@ class SonarReporter implements Reporter {
     entries.push(entry);
 
     if (test.outcome() === 'skipped') {
-      entry.children.push({ name: 'skipped' });
+      if (this.sonarcloud)
+        entry.children.push({ name: 'skipped', attributes: { 'message': test.results[0].error?.message || 'no message' } });
+      else
+        entry.children.push({ name: 'skipped' });
       return;
     }
 
     if (!test.ok()) {
-      entry.children.push({ name: 'failure' });
-      return;
+      if (this.sonarcloud)
+        entry.children.push({ name: 'failure', attributes: { 'message': test.results[0].error?.message || 'no message' }, text: test.results[0].error?.stack || undefined });
+      else
+        entry.children.push({ name: 'failure' });
     }
 
     // There is no equivalent to error in this model
@@ -164,6 +171,13 @@ function reportOutputNameFromEnv(): string | undefined {
   if (process.env[`PLAYWRIGHT_SONAR_OUTPUT_NAME`])
     return path.resolve(process.cwd(), process.env[`PLAYWRIGHT_SONAR_OUTPUT_NAME`]);
   return undefined;
+}
+
+function reportSonarCloudFromEnv(): boolean | undefined {
+  if (process.env[`PLAYWRIGHT_SONAR_SONARCLOUD`])
+    return process.env[`PLAYWRIGHT_SONAR_SONARCLOUD`] === 'true';
+  else
+    return undefined;
 }
 
 export default SonarReporter;

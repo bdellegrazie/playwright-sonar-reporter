@@ -40,17 +40,17 @@ $env:PLAYWRIGHT_SONAR_OUTPUT_NAME="results.xml"
 npx playwright test --reporter=@bdellegrazie/playwright-sonar-reporter
 ```
 
+If using SonarCloud, either set the sonarcloud option as shown below or set the `PLAYWRIGHT_SONAR_SONARCLOUD` environment variable to `true`.
+
 In configuration file, pass options directly:
 
 ```js
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  reporter: [['@bdellegrazie/playwright-sonar-reporter', { outputFile: 'results.xml' }]],
+  reporter: [['@bdellegrazie/playwright-sonar-reporter', { outputFile: 'results.xml', sonarcloud: true }]],
 });
 ```
-
-The Sonar reporter has no options beyond the outputFile property. 
 
 ## TO DOs
 
@@ -63,6 +63,7 @@ Any questions related with this code, please raise issues in this GitHub project
 ## References
 
 - [Sonarqube Generic Test Execution Report](https://docs.sonarsource.com/sonarqube/9.9/analyzing-source-code/test-coverage/generic-test-data/#generic-test-execution)
+- [Sonarcloud Generic Test Exeuction Report](https://docs.sonarsource.com/sonarqube-cloud/enriching/test-coverage/generic-test-data/)
 
 ## LICENSE
 
