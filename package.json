@@ -44,7 +44,7 @@
   "homepage": "https://github.com/bdellegrazie/playwright-sonar-reporter",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "@playwright/test": "~1.51",
+    "@playwright/test": "~1.52",
     "@sinonjs/fake-timers": "^11.2.2",
     "@types/node": "~20",
     "@types/sinonjs__fake-timers": "^8.1.5",
@@ -64,7 +64,7 @@
     "mime": "^4.0.3",
     "mock-fs": "^5.2.0",
     "nyc": "^17.1.0",
-    "playwright": "~1.51",
+    "playwright": "~1.52",
     "playwright-test-coverage": "^1.2.12",
     "prettier": "^3.2.5",
     "proxy": "^2.1.1",
