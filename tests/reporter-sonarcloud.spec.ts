@@ -168,6 +168,6 @@ test('fixme should render as skipped', async ({ runInlineTest }) => {
 
 function parseXML(xml: string): any {
   let result: any;
-  xml2js.parseString(xml, (err, r) => result = r);
+  xml2js.parseString(xml, (_err, r) => result = r);
   return result;
 }

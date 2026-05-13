@@ -47,7 +47,7 @@ export const serverFixtures: Fixtures<ServerFixtures, ServerWorkerOptions> = {
     const httpsServer = await TestServer.createHTTPS(assetsPath, httpsPort, loopback);
     httpsServer.enableHTTPCache(cachedPath);
 
-    const socksServer = socks.createServer((info, accept, deny) => {
+    const socksServer = socks.createServer((_info, accept, _deny) => {
       const socket = accept(true);
       if (!socket)
         return;

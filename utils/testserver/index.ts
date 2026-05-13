@@ -94,6 +94,7 @@ export class TestServer {
     });
     this._server.listen(port);
     this._dirPath = dirPath;
+    /* eslint-disable @typescript-eslint/no-require-imports */
     this.debugServer = require('debug')('pw:testserver');
 
     this._startTime = new Date();
@@ -287,7 +288,7 @@ export class TestServer {
 
   waitForWebSocketConnectionRequest() {
     return new Promise<http.IncomingMessage & { headers: http.IncomingHttpHeaders }>(fullfil => {
-      this._wsServer.once('connection', (ws, req) => fullfil(req));
+      this._wsServer.once('connection', (_ws, req) => fullfil(req));
     });
   }
 

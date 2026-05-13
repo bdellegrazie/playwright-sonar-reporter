@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-const path = require('path');
-const {TestServer} = require('.');
+import path from 'path';
+import {TestServer} from './index';
 
 const port = 8907;
 const httpsPort = 8908;

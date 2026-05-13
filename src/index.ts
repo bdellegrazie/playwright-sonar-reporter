@@ -18,13 +18,9 @@ import fs from 'fs';
 import path from 'path';
 
 import type { FullConfig, FullResult, Reporter, Suite, TestCase } from '@playwright/test/reporter';
-import { stripAnsiEscapes } from './base.js';
-import { assert } from 'playwright-core/lib/utils';
+import { assert, monotonicTime, stripAnsiEscapes } from './base';
 
-export function monotonicTime(): number {
-  const [seconds, nanoseconds] = process.hrtime();
-  return seconds * 1000 + (nanoseconds / 1000 | 0) / 1000;
-}
+type SonarReporterOptions = { outputFile?: string, stripANSIControlSequences?: boolean, sonarcloud?: boolean };
 
 class SonarReporter implements Reporter {
   private config!: FullConfig;
@@ -36,7 +32,7 @@ class SonarReporter implements Reporter {
   private readonly sonarcloud: boolean = false;
 
 
-  constructor(options: { outputFile?: string, stripANSIControlSequences?: boolean, embedAnnotationsAsProperties?: boolean, textContentAnnotations?: string[], embedAttachmentsAsProperty?: string, sonarcloud?: boolean } = {}) {
+  constructor(options: SonarReporterOptions = {}) {
     this.outputFile = options.outputFile || reportOutputNameFromEnv();
     this.stripANSIControlSequences = options.stripANSIControlSequences || true;
     this.sonarcloud = options.sonarcloud || reportSonarCloudFromEnv() || false;
@@ -56,7 +52,7 @@ class SonarReporter implements Reporter {
     }
   }
 
-  async onEnd(result: FullResult) {
+  async onEnd(_result: FullResult) {
     const children: XMLEntry[] = [];
     for (const projectSuite of this.suite.suites) {
       for (const fileSuite of projectSuite.suites)
@@ -72,7 +68,7 @@ class SonarReporter implements Reporter {
       children
     };
 
-    serializeXML(root, tokens, this.stripANSIControlSequences);
+    serializeXML(root, tokens, this.stripANSIControlSequences ?? true);
     const reportString = tokens.join('\n');
     if (this.resolvedOutputFile) {
       await fs.promises.mkdir(path.dirname(this.resolvedOutputFile), { recursive: true });
@@ -91,7 +87,7 @@ class SonarReporter implements Reporter {
     const entry: XMLEntry = {
       name: 'file',
       attributes: {
-        path: suite.location?.file,
+        path: suite.location?.file ?? 'unknown',
       },
       children
     };
@@ -150,6 +146,7 @@ function serializeXML(entry: XMLEntry, tokens: string[], stripANSIControlSequenc
 }
 
 // See https://en.wikipedia.org/wiki/Valid_characters_in_XML
+/* eslint-disable no-control-regex */
 const discouragedXMLCharacters = /[\u0000-\u0008\u000b-\u000c\u000e-\u001f\u007f-\u0084\u0086-\u009f]/g;
 
 function escape(text: string, stripANSIControlSequences: boolean, isCharacterData: boolean): string {

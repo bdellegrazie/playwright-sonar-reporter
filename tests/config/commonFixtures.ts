@@ -20,6 +20,7 @@ import { execSync, spawn } from 'child_process';
 import net from 'net';
 import fs from 'fs';
 
+/* eslint-disable no-control-regex */
 const ansiRegex = new RegExp('[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))', 'g');
 export function stripAnsi(str: string): string {
   return str.replace(ansiRegex, '');
@@ -58,7 +59,7 @@ function readAllProcessesLinux(): { pid: number, ppid: number, pgrp: number }[] 
           pgrp: +match.groups.pgrp,
         });
       }
-    } catch (e) {
+    } catch (_e) {
       // We don't have access to some /proc/<pid>/stat file.
     }
   }
@@ -167,7 +168,7 @@ export class TestChildProcess {
     if (process.platform === 'win32') {
       try {
         execSync(`taskkill /pid ${this.process.pid} /T /F /FI "MEMUSAGE gt 0"`, { stdio: 'ignore' });
-      } catch (e) {
+      } catch (_e) {
         // the process might have already stopped
       }
       return;
@@ -177,7 +178,7 @@ export class TestChildProcess {
     if (signal === 'SIGINT') {
       try {
         process.kill(-this.process.pid, 'SIGINT');
-      } catch (e) {
+      } catch (_e) {
         // the process might have already stopped
       }
       return;
@@ -194,7 +195,7 @@ export class TestChildProcess {
     for (const pgrp of descendantProcessGroups) {
       try {
         process.kill(-pgrp, 'SIGKILL');
-      } catch (e) {
+      } catch (_e) {
         // the process might have already stopped
       }
     }
@@ -243,6 +244,7 @@ export const commonFixtures: Fixtures<CommonFixtures, CommonWorkerFixtures> = {
     if (testInfo.status !== 'passed' && testInfo.status !== 'skipped' && !process.env.PWTEST_DEBUG) {
       for (const process of processes) {
         console.log('====== ' + process.params.command.join(' '));
+        /* eslint-disable no-control-regex */
         console.log(process.fullOutput.replace(/\x1Bc/g, ''));
         console.log('=========================================');
       }
