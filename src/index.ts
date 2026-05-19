@@ -18,7 +18,7 @@ import fs from 'fs';
 import path from 'path';
 
 import type { FullConfig, FullResult, Reporter, Suite, TestCase } from '@playwright/test/reporter';
-import { assert, monotonicTime, stripAnsiEscapes } from './base';
+import { assert, monotonicTime, stripAnsiEscapes } from './base.js';
 
 type SonarReporterOptions = { outputFile?: string, stripANSIControlSequences?: boolean, sonarcloud?: boolean };
 
