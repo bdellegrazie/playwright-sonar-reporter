@@ -19,7 +19,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { PNG } from 'playwright-core/lib/utilsBundle';
-import { removeFolders } from 'playwright-core/lib/utils';
+import { removeFolders } from '../dist/base.js';
 import type { CommonFixtures, CommonWorkerFixtures, TestChildProcess } from './config/commonFixtures.js';
 import { commonFixtures } from './config/commonFixtures.js';
 import type { ServerFixtures, ServerWorkerOptions } from './config/serverFixtures.js';
@@ -113,7 +113,7 @@ async function runPlaywrightTest(childProcess: CommonFixtures['childProcess'], b
   // eslint-disable-next-line prefer-const
   let { exitCode, output } = await runPlaywrightCommand(childProcess, cwd, args, {
     // PW_TEST_REPORTER: path.join(__dirname, '../../packages/playwright-test/lib/reporters/json.js'),
-    PW_TEST_REPORTER: path.join(__dirname, '../node_modules/playwright/lib/reporters/json.js'),
+    PW_TEST_REPORTER: 'json',
     // PW_TEST_REPORTER: path.join(__dirname, '../dist/index.js'),
     PLAYWRIGHT_JSON_OUTPUT_NAME: reportFile,
     ...env,
