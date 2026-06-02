@@ -59,7 +59,7 @@
     "jiti": "^2.7.0",
     "mime": "^4.0.7",
     "mock-fs": "^5.5.0",
-    "nyc": "^17.1.0",
+    "nyc": "^18.0.0",
     "playwright": "~1.60",
     "playwright-test-coverage": "^1.2.12",
     "prettier": "^3.6.2",
