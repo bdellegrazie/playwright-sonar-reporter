@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "@playwright/test": "~1.60",
+    "@playwright/test": "~1.62",
     "@sinonjs/fake-timers": "^15.4.0",
     "@types/node": "~22",
     "@types/sinonjs__fake-timers": "^15.0.1",
@@ -60,7 +60,7 @@
     "mime": "^4.0.7",
     "mock-fs": "^5.5.0",
     "nyc": "^18.0.0",
-    "playwright": "~1.60",
+    "playwright": "~1.62",
     "playwright-test-coverage": "^1.2.12",
     "prettier": "^3.6.2",
     "proxy": "^2.2.0",
