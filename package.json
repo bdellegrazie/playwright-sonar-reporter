@@ -73,6 +73,6 @@
     "xml2js": "^0.6.2"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.27.1"
+    "@babel/code-frame": "^8.0.0"
   }
 }
